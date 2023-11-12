@@ -1,3 +1,5 @@
+
+
 import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 import cv2
@@ -6,6 +8,9 @@ import numpy as np
 from playsound import playsound
 import threading
 import time
+import urllib.parse
+
+
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
@@ -19,7 +24,12 @@ def bad():
 
 
 def check_user_status(username, password):
+    
     try:
+        
+        username = urllib.parse.quote(username,safe="")
+        password = urllib.parse.quote(password,safe="")
+        
         response = requests.get(f"https://localhost:7018/api/user/checkUserStatus?username={username}&password={password}", verify=False)
 
         if response.content:
@@ -106,3 +116,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+
+
+
